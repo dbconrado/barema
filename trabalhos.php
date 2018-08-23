@@ -29,31 +29,11 @@ $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="/barema/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css">
 
-    <link rel="stylesheet" href="/barema/assets/css/trabalhos.css">
+    <link rel="stylesheet" href="assets/css/trabalhos.css">
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="/barema/assets/js/bootstrap.min.js"></script>
-    <script src="/barema/assets/js/bootstrap-select-modified.js"></script>
-    
-    <script>
-      $(document).ready(function ()
-      {
-        $('#next').on('click', function(e)
-        {
-            e.preventDefault();
-            var nomeProjeto = $('[name="selProjeto"]').val();
-            console.log(nomeProjeto);
-            if( nomeProjeto )
-            {
-                window.location.href = '/barema/avaliar.php?criterio=1&&cod='+nomeProjeto;
-            }
-        });
-      });
-    </script>
   </head>
   <body>
 
@@ -65,10 +45,10 @@ $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Cover</h3>
+              <h3 class="mas<h3 class="masthead-brand">VII SIC - Avaliação</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="/barema">Home</a></li>
+                  <li class="active"><a href="trabalhos.php">Trabalhos</a></li>
                   <li><a href="#">Features</a></li>
                   <li><a href="#">Contact</a></li>
                 </ul>
@@ -76,20 +56,19 @@ $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
             </div>
           </div>
 
-          <div class="inner cover">
+          <div class="inner cover" align="center">
             <h2 class="cover-heading">Selecione o trabalho a ser avaliado:</h2>
-            <div class="row" align="center">
               
-            <form method="POST">
-              <select name="selProjeto" class="selectpicker selBox" data-live-search="true" data-dropup-auto="false">
+            <form action="avaliar.php" method="GET">
+              <select name="cod" class="selectpicker selBox" data-live-search="true" data-dropup-auto="false">
                 <?php foreach ($resultado as $trab) { ?>
                   <option data-tokens="<?= $trab->titulo ?>" value="<?= $trab->id ?>" ><?= $trab->titulo ?></option>
                 <?php } ?>
               </select>
               <br>
               <br>
-
-              <button id="next" type="button" class="btn btn-default">Próximo</button>
+				<input type="hidden" name="criterio" value="1">
+              <button id="next" type="submit" class="btn btn-default">Próximo</button>
               </form>
             </div>
           </div>
@@ -99,5 +78,11 @@ $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
       </div>
 
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap-select-modified.js"></script>
+    
 </body>
 </html>

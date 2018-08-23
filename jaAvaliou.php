@@ -22,26 +22,9 @@ if (!isset($_SESSION['avaliador'])) {
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="/barema/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css">
-
-    <link rel="stylesheet" href="/barema/assets/css/trabalhos.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/trabalhos.css">
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="/barema/assets/js/bootstrap.min.js"></script>
-    <script src="/barema/assets/js/bootstrap-select-modified.js"></script>
-    
-    <script>
-        $(document).ready( function()
-        {
-            $("#avaliar-mais").on('click', function(e)
-                {
-                    e.preventDefault();
-                    window.location.href = '/barema';
-                });
-        });
-    </script>
   </head>
   <body>
 
@@ -53,10 +36,10 @@ if (!isset($_SESSION['avaliador'])) {
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Cover</h3>
+              <h3 class="masthead-brand">VII SIC - Avaliação</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="/barema">Home</a></li>
+                  <li class="active"><a href="/">Home</a></li>
                   <li><a href="#">Features</a></li>
                   <li><a href="#">Contact</a></li>
                 </ul>
@@ -64,10 +47,10 @@ if (!isset($_SESSION['avaliador'])) {
             </div>
           </div>
 
-          <div class="inner cover">
+          <div class="inner cover" align="center">
             <h2 class="cover-heading"> Você já avaliou este projeto! </h2>
             
-            <button id="avaliar-mais" type="button" class="btn btn-default">Avaliar mais projetos</button>
+            <a id="avaliar-mais" href="trabalhos.php" class="btn btn-default">Avaliar mais projetos</a>
           </div>
 
         </div>
@@ -75,5 +58,8 @@ if (!isset($_SESSION['avaliador'])) {
       </div>
 
     </div>
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    
 </body>
 </html>
