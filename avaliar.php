@@ -21,11 +21,23 @@ else $sql = "SELECT finalizou_avaliacao FROM avaliacao_oral WHERE trabalho_id = 
 $comando = $conexao->query($sql);
 $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
 
+function amIActive($opcaoTestada)
+{
+    if(isset($_SESSION['respostas']))
+    {
+        $respostaDada =  $_SESSION['respostas'][(int) $_GET['criterio']];
+        if($respostaDada == $opcaoTestada)
+        {
+            return true;
+        }
+    }
+}
+
 if($resultado && $resultado[0]->finalizou_avaliacao == 'V') header('Location: jaAvaliou.php');
 else
 {
     $criterio = $_GET['criterio'];
-    
+      
     $sql = "SELECT categoria FROM trabalho WHERE id = '". $_GET['cod'] ."'";
 
     $comando = $conexao->query($sql);
@@ -82,7 +94,6 @@ else
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css">
 
     <link rel="stylesheet" href="assets/css/trabalhos.css">
-    
   </head>
   <body>
 
@@ -112,16 +123,16 @@ else
                 <div class="col">
                 <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=1">1</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=2">2</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=3">3</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=4">4</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=5">5</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=6">6</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=7">7</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=8">8</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=9">9</a></li>
-                    <li><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=10">10</a></li>
+                    <li id="op1" class=<?php echo amIActive(1) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=1">1</a></li>
+                    <li id="op2" class=<?php echo amIActive(2) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=2">2</a></li>
+                    <li id="op3" class=<?php echo amIActive(3) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=3">3</a></li>
+                    <li id="op4" class=<?php echo amIActive(4) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=4">4</a></li>
+                    <li id="op5" class=<?php echo amIActive(5) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=5">5</a></li>
+                    <li id="op6" class=<?php echo amIActive(6) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=6">6</a></li>
+                    <li id="op7" class=<?php echo amIActive(7) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=7">7</a></li>
+                    <li id="op8" class=<?php echo amIActive(8) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=8">8</a></li>
+                    <li id="op9" class=<?php echo amIActive(9) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=9">9</a></li>
+                    <li id="op10" class=<?php echo amIActive(10) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=10">10</a></li>
                 </ul>
                 </nav>
                 </div>
@@ -143,13 +154,5 @@ else
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/bootstrap-select-modified.js"></script>
-    
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </body>
 </html>

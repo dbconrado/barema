@@ -21,6 +21,18 @@
 
     $comando = $conexao->query($sql);
 
+    if(isset($_SESSION['respostas']))
+    {
+        $arrayRespostas = $_SESSION['respostas'];
+        $_SESSION['respostas'] = array_replace($arrayRespostas, array((int) $criterio => (int) $resposta));
+    }
+    else
+    {
+        $arrayRespostas = array_fill(1,10,0);
+        $arrayRespostas = array_replace($arrayRespostas, array(1 => (int) $resposta));
+        $_SESSION['respostas'] = $arrayRespostas;
+    }
+
     switch($categoria)
     {
         case "O":
@@ -47,6 +59,7 @@
         else $sql = "UPDATE avaliacao_oral SET finalizou_avaliacao = 'V';";
         $comando = $conexao->prepare($sql);
         $resultado = $comando->execute();
+        $_SESSION['respostas'] = array_fill(1,10,0);
         header('Location: thanks.php');
     }
     else
