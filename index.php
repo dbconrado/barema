@@ -70,6 +70,5 @@ if (isset($_SESSION['avaliador'])) {
 	</div>
   
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/barema.js"></script>
 </body>
 </html>

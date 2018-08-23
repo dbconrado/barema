@@ -6,16 +6,9 @@ require_once 'conexao.php';
 
 if (!isset($_SESSION['avaliador'])) {
 
-	// BNÃO está logado
-	header('Location: index.php');
+    // BNÃO está logado
+    header('Location: index.php');
 }
-
-$conexao = conectar();
-
-$sql = "SELECT * FROM trabalho ORDER BY titulo";
-
-$comando = $conexao->query($sql);
-$resultado = $comando->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
@@ -40,19 +33,14 @@ $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
     <script src="/barema/assets/js/bootstrap-select-modified.js"></script>
     
     <script>
-      $(document).ready(function ()
-      {
-        $('#next').on('click', function(e)
+        $(document).ready( function()
         {
-            e.preventDefault();
-            var nomeProjeto = $('[name="selProjeto"]').val();
-            console.log(nomeProjeto);
-            if( nomeProjeto )
-            {
-                window.location.href = '/barema/avaliar.php?criterio=1&&cod='+nomeProjeto;
-            }
+            $("#avaliar-mais").on('click', function(e)
+                {
+                    e.preventDefault();
+                    window.location.href = '/barema';
+                });
         });
-      });
     </script>
   </head>
   <body>
@@ -77,21 +65,9 @@ $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
           </div>
 
           <div class="inner cover">
-            <h2 class="cover-heading">Selecione o trabalho a ser avaliado:</h2>
-            <div class="row" align="center">
-              
-            <form method="POST">
-              <select name="selProjeto" class="selectpicker selBox" data-live-search="true" data-dropup-auto="false">
-                <?php foreach ($resultado as $trab) { ?>
-                  <option data-tokens="<?= $trab->titulo ?>" value="<?= $trab->id ?>" ><?= $trab->titulo ?></option>
-                <?php } ?>
-              </select>
-              <br>
-              <br>
-
-              <button id="next" type="button" class="btn btn-default">Próximo</button>
-              </form>
-            </div>
+            <h2 class="cover-heading"> Você já avaliou este projeto! </h2>
+            
+            <button id="avaliar-mais" type="button" class="btn btn-default">Avaliar mais projetos</button>
           </div>
 
         </div>

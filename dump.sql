@@ -32,8 +32,9 @@ DROP TABLE IF EXISTS `avaliacao_oral`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `avaliacao_oral` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `avaliador_id` int(11) NOT NULL,
+  `avaliador_id` int(11) NOT NULL UNIQUE,
   `trabalho_id` int(11) NOT NULL,
+  `finalizou_avaliacao` CHAR(1) DEFAULT 'F',
   `c1` int(11) DEFAULT NULL,
   `c2` int(11) DEFAULT NULL,
   `c3` int(11) DEFAULT NULL,
@@ -45,7 +46,6 @@ CREATE TABLE `avaliacao_oral` (
   `c9` int(11) DEFAULT NULL,
   `c10` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `avaliador_id` (`avaliador_id`),
   KEY `trabalho_id` (`trabalho_id`),
   CONSTRAINT `avaliacao_oral_ibfk_1` FOREIGN KEY (`avaliador_id`) REFERENCES `avaliador` (`id`),
   CONSTRAINT `avaliacao_oral_ibfk_2` FOREIGN KEY (`trabalho_id`) REFERENCES `trabalho` (`id`)
@@ -69,9 +69,9 @@ DROP TABLE IF EXISTS `avaliacao_poster`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `avaliacao_poster` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `avaliador_id` int(11) NOT NULL,
   `trabalho_id` int(11) NOT NULL,
+  `finalizou_avaliacao` CHAR(1) DEFAULT 'F',
   `c1` int(11) DEFAULT NULL,
   `c2` int(11) DEFAULT NULL,
   `c3` int(11) DEFAULT NULL,
@@ -82,8 +82,7 @@ CREATE TABLE `avaliacao_poster` (
   `c8` int(11) DEFAULT NULL,
   `c9` int(11) DEFAULT NULL,
   `c10` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `avaliador_id` (`avaliador_id`),
+  PRIMARY KEY (`avaliador_id`, `trabalho_id`),
   KEY `trabalho_id` (`trabalho_id`),
   CONSTRAINT `avaliacao_poster_ibfk_1` FOREIGN KEY (`avaliador_id`) REFERENCES `avaliador` (`id`),
   CONSTRAINT `avaliacao_poster_ibfk_2` FOREIGN KEY (`trabalho_id`) REFERENCES `trabalho` (`id`)
