@@ -13,6 +13,7 @@
     $categoria = $_GET['op'];
     $resposta = $_GET['resp'];
     $codTrabalho = $_GET['cod'];
+    $_avaliador = $_SESSION['avaliador'];
 
     $conexao = conectar();
 
@@ -56,8 +57,8 @@
     $criterio = $criterio+1;
     if($criterio == 11)
     {
-        if($categoria == "P") $sql = "UPDATE avaliacao_poster SET finalizou_avaliacao = 'V';";
-        else $sql = "UPDATE avaliacao_oral SET finalizou_avaliacao = 'V';";
+        if($categoria == "P") $sql = "UPDATE avaliacao_poster SET finalizou_avaliacao = 'V' WHERE trabalho_id=$codTrabalho AND avaliador_id=$_avaliador;";
+        else $sql = "UPDATE avaliacao_oral SET finalizou_avaliacao = 'V' WHERE trabalho_id=$codTrabalho AND avaliador_id=$_avaliador;";
         $comando = $conexao->prepare($sql);
         $resultado = $comando->execute();
         $_SESSION['respostas'] = array_fill(1,10,0);
