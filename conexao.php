@@ -2,7 +2,7 @@
 function conectar() {
 	$nomeBanco = "barema";
 	$usuarioBanco = "root";
-	$senhaBanco = "";
+	$senhaBanco = "root";
 
 	$stringConexao = "mysql:dbname={$nomeBanco};host=localhost";
 

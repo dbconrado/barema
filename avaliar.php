@@ -33,6 +33,13 @@
         }
     }
 
+    function leRespostaDada() {
+        if (isset($_SESSION['respostas'])) {
+            return $_SESSION['respostas'][(int) $_GET['criterio']];
+        }
+        return "";
+    }
+
     if($resultado && $resultado[0]->finalizou_avaliacao == 'V') header('Location: jaAvaliou.php');
     else
     {
@@ -116,30 +123,37 @@
 
           <div class="inner cover">
             <h2 class="cover-heading"><?= $questao ?> </h2>
-
+            <p>Critério <?= $_GET['criterio'] ?> de 10</p>
             <div class="row" align="center">
                 <div class="col">
+                <form id="avalie" action="salvaResposta.php" method="GET">
+                <input type="hidden" name="op" value="<?=$resultado[0]->categoria?>">
+                <input type="hidden" name="c" value="<?=$_GET['criterio']?>">
+                <input type="hidden" name="cod" value="<?=$_GET['cod']?>">
+                <input id="resp" type="hidden" name="resp" value="<?= leRespostaDada()?>">
+                <input type="hidden" name="salt" value="<?= time() ?>">
                 <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    <li id="op1" class=<?php echo amIActive(1) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=1">1</a></li>
-                    <li id="op2" class=<?php echo amIActive(2) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=2">2</a></li>
-                    <li id="op3" class=<?php echo amIActive(3) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=3">3</a></li>
-                    <li id="op4" class=<?php echo amIActive(4) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=4">4</a></li>
-                    <li id="op5" class=<?php echo amIActive(5) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=5">5</a></li>
-                    <li id="op6" class=<?php echo amIActive(6) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=6">6</a></li>
-                    <li id="op7" class=<?php echo amIActive(7) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=7">7</a></li>
-                    <li id="op8" class=<?php echo amIActive(8) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=8">8</a></li>
-                    <li id="op9" class=<?php echo amIActive(9) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=9">9</a></li>
-                    <li id="op10" class=<?php echo amIActive(10) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=10">10</a></li>
+                    <li id="op1" class=<?php echo amIActive(1) ? 'active' : '' ?>><a href="#" data-resp="1"">1</a></li>
+                    <li id="op2" class=<?php echo amIActive(2) ? 'active' : '' ?>><a href="#" data-resp="2"">2</a></li>
+                    <li id="op3" class=<?php echo amIActive(3) ? 'active' : '' ?>><a href="#" data-resp="3"">3</a></li>
+                    <li id="op4" class=<?php echo amIActive(4) ? 'active' : '' ?>><a href="#" data-resp="4"">4</a></li>
+                    <li id="op5" class=<?php echo amIActive(5) ? 'active' : '' ?>><a href="#" data-resp="5"">5</a></li>
+                    <li id="op6" class=<?php echo amIActive(6) ? 'active' : '' ?>><a href="#" data-resp="6"">6</a></li>
+                    <li id="op7" class=<?php echo amIActive(7) ? 'active' : '' ?>><a href="#" data-resp="7"">7</a></li>
+                    <li id="op8" class=<?php echo amIActive(8) ? 'active' : '' ?>><a href="#" data-resp="8"">8</a></li>
+                    <li id="op9" class=<?php echo amIActive(9) ? 'active' : '' ?>><a href="#" data-resp="9"">9</a></li>
+                    <li id="op10" class=<?php echo amIActive(10) ? 'active' : '' ?>><a href="#" data-resp="10"">10</a></li>
                 </ul>
                 </nav>
+                </form>
                 </div>
               
                 <br>
                 <br>
 
-                    <button onClick=history.go(-1) id="prev" type="submit" class="btn btn-default">Anterior</button>
-                    <button onClick=history.go(+1) id="prev" type="submit" class="btn btn-default">Próximo</button>
+                    <a href="avaliar.php?criterio=<?=$_GET['criterio'] - 1 === 0 ? 1 : $_GET['criterio'] - 1 ?>&&cod=<?=$_GET['cod']?>" id="prev" class="btn btn-default">Anterior</a>
+                    <button form="avalie" type="submit" class="btn btn-default">Próximo</button>
             </div>
           </div>
 
@@ -152,5 +166,19 @@
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script>
+        function registrar(e) {
+            e.preventDefault();
+            document.querySelector('#resp').value = e.target.dataset.resp;
+            var ops = document.querySelectorAll('li[id^=op]');
+            for (var i = 0; i < ops.length; i++)
+                ops[i].classList.remove('active');
+            e.target.parentElement.classList.add('active');
+        }
+
+        var as = document.querySelectorAll('li[id^=op] a');
+        for (var i = 0; i < as.length; i++)
+            as[i].addEventListener('click', registrar);
+    </script>
 </body>
 </html>
