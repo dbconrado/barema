@@ -1,82 +1,82 @@
 <?php
 
-session_start();
+    session_start();
 
-require_once 'conexao.php';
+    require_once 'conexao.php';
 
-if (!isset($_SESSION['avaliador'])) {
+    if (!isset($_SESSION['avaliador'])) {
 
-	// NÃO está logado
-	header('Location: index.php');
-}
-
-$conexao = conectar();
-$sql = "SELECT categoria FROM trabalho WHERE id = ". $_GET['cod'] .";";
-$comando = $conexao->query($sql);
-$resultado = $comando->fetchAll(PDO::FETCH_OBJ);
-
-if($resultado[0]->categoria == "P") $sql = "SELECT finalizou_avaliacao FROM avaliacao_poster WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
-else $sql = "SELECT finalizou_avaliacao FROM avaliacao_oral WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
-
-$comando = $conexao->query($sql);
-$resultado = $comando->fetchAll(PDO::FETCH_OBJ);
-
-function amIActive($opcaoTestada)
-{
-    if(isset($_SESSION['respostas']))
-    {
-        $respostaDada =  $_SESSION['respostas'][(int) $_GET['criterio']];
-        if($respostaDada == $opcaoTestada)
-        {
-            return true;
-        }
+        // NÃO está logado
+        header('Location: index.php');
     }
-}
 
-if($resultado && $resultado[0]->finalizou_avaliacao == 'V') header('Location: jaAvaliou.php');
-else
-{
-    $criterio = $_GET['criterio'];
-      
-    $sql = "SELECT categoria FROM trabalho WHERE id = '". $_GET['cod'] ."'";
+    $conexao = conectar();
+    $sql = "SELECT categoria FROM trabalho WHERE id = ". $_GET['cod'] .";";
+    $comando = $conexao->query($sql);
+    $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
+
+    if($resultado[0]->categoria == "P") $sql = "SELECT finalizou_avaliacao FROM avaliacao_poster WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
+    else $sql = "SELECT finalizou_avaliacao FROM avaliacao_oral WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
 
     $comando = $conexao->query($sql);
     $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
 
-    switch($criterio)
+    function amIActive($opcaoTestada)
     {
-        case 1:
-            $questao = "Capacidade do <strong>Título</strong> expressar o trabalho como um todo";
-            break;
-        case 2:
-            $questao = "A <strong>introdução</strong> como contexto da pesquisa";
-            break;
-        case 3:
-            $questao = "Clareza nos <strong>objetivos</strong> apresentados";
-            break;
-        case 4:
-            $questao = "Coerência entre <strong>metodologia</strong> e os objetivos propostos";        
-            break;
-        case 5:
-            $questao = "Volume dos <strong>resultados</strong> e coerência das <strong>discussões</strong> apresentadas";
-            break;
-        case 6:
-            $questao = "Concisão das <strong>conclusões</strong> alcançadas";
-            break;
-        case 7:
-            $questao = "Qualidade e variedade dos meios de comunicação não textuais (gráficos, tabelas, figuras, fluxogramas etc.)";
-            break;
-        case 8:
-            $questao = "Organização do conteúdo no pôster (autoexplicativo?)";
-            break;
-        case 9:
-            $questao = "Qualidade geral da apresentação do pôster";
-            break;
-        case 10:
-            $questao = "Mérito da pesquisa apresentada";
-            break;
+        if(isset($_SESSION['respostas']) && isset($_SESSION['codProjeto']) && $_GET["cod"] == $_SESSION['codProjeto'])
+        {
+            $respostaDada =  $_SESSION['respostas'][(int) $_GET['criterio']];
+            if($respostaDada == $opcaoTestada)
+            {
+                return true;
+            }
+        }
     }
-}
+
+    if($resultado && $resultado[0]->finalizou_avaliacao == 'V') header('Location: jaAvaliou.php');
+    else
+    {
+        $criterio = $_GET['criterio'];
+        
+        $sql = "SELECT categoria FROM trabalho WHERE id = '". $_GET['cod'] ."'";
+
+        $comando = $conexao->query($sql);
+        $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
+
+        switch($criterio)
+        {
+            case 1:
+                $questao = "Capacidade do <strong>Título</strong> expressar o trabalho como um todo";
+                break;
+            case 2:
+                $questao = "A <strong>introdução</strong> como contexto da pesquisa";
+                break;
+            case 3:
+                $questao = "Clareza nos <strong>objetivos</strong> apresentados";
+                break;
+            case 4:
+                $questao = "Coerência entre <strong>metodologia</strong> e os objetivos propostos";        
+                break;
+            case 5:
+                $questao = "Volume dos <strong>resultados</strong> e coerência das <strong>discussões</strong> apresentadas";
+                break;
+            case 6:
+                $questao = "Concisão das <strong>conclusões</strong> alcançadas";
+                break;
+            case 7:
+                $questao = "Qualidade e variedade dos meios de comunicação não textuais (gráficos, tabelas, figuras, fluxogramas etc.)";
+                break;
+            case 8:
+                $questao = "Organização do conteúdo no pôster (autoexplicativo?)";
+                break;
+            case 9:
+                $questao = "Qualidade geral da apresentação do pôster";
+                break;
+            case 10:
+                $questao = "Mérito da pesquisa apresentada";
+                break;
+        }
+    }
 
 ?>
 
@@ -125,7 +125,7 @@ else
                 <ul class="pagination">
                     <li id="op1" class=<?php echo amIActive(1) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=1">1</a></li>
                     <li id="op2" class=<?php echo amIActive(2) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=2">2</a></li>
-                    <li id="op3" class=<?php echo amIActive(3) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=3">3</a></li>
+                    <li id="op3" class=<?php echo amIActive(3) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=3">3</a></li>
                     <li id="op4" class=<?php echo amIActive(4) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=4">4</a></li>
                     <li id="op5" class=<?php echo amIActive(5) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=5">5</a></li>
                     <li id="op6" class=<?php echo amIActive(6) ? 'active' : '' ?>><a href="salvaResposta.php?op=<?=$resultado[0]->categoria?>&&c=<?=$_GET['criterio']?>&&cod=<?=$_GET['cod']?>&&resp=6">6</a></li>
@@ -141,6 +141,7 @@ else
                 <br>
 
                     <button onClick=history.go(-1) id="prev" type="submit" class="btn btn-default">Anterior</button>
+                    <button onClick=history.go(+1) id="prev" type="submit" class="btn btn-default">Próximo</button>
             </div>
           </div>
 

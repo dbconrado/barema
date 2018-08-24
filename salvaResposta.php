@@ -21,7 +21,7 @@
 
     $comando = $conexao->query($sql);
 
-    if(isset($_SESSION['respostas']))
+    if(isset($_SESSION['respostas']) && isset($_SESSION['codProjeto']) && $_SESSION['codProjeto'] == $codTrabalho)
     {
         $arrayRespostas = $_SESSION['respostas'];
         $_SESSION['respostas'] = array_replace($arrayRespostas, array((int) $criterio => (int) $resposta));
@@ -31,6 +31,7 @@
         $arrayRespostas = array_fill(1,10,0);
         $arrayRespostas = array_replace($arrayRespostas, array(1 => (int) $resposta));
         $_SESSION['respostas'] = $arrayRespostas;
+        $_SESSION['codProjeto'] = $codTrabalho;
     }
 
     switch($categoria)
