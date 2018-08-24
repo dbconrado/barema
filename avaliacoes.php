@@ -8,7 +8,7 @@ select s.tid, s.titulo, AVG(s.media) as media FROM (
 SELECT (a.c1 + a.c2 + a.c3 + a.c4 + a.c5 + a.c6 + a.c7 + a.c8 + a.c9 + a.c10) / 10 as media, t.id as tid, t.titulo, av.id as aid, av.nome FROM avaliacao_poster a
 inner join trabalho t on (t.id = a.trabalho_id)
 inner join avaliador av on (av.id = avaliador_id)
-order by t.titulo, av.nome) s group by s.tid, s.titulo
+order by t.titulo, av.nome) s group by s.tid, s.titulo order by media desc 
 EOF;
 
 $comando = $conexao->query($sql);
