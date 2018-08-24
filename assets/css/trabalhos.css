@@ -1,3 +1,7 @@
+input {
+  color: black;
+}
+
 .custom-collapse {
   overflow: hidden !important;
 }

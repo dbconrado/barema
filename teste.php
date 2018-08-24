@@ -1,4 +1,3 @@
 <?php
-  $teste = 't';
-  phpinfo();
+  echo "josé";
 ?>

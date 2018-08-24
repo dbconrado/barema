@@ -19,7 +19,7 @@ if (!isset($_SESSION['avaliador'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>VII SIC - Sabará</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -41,9 +41,9 @@ if (!isset($_SESSION['avaliador'])) {
                 <h3 class="mas<h3 class="masthead-brand">VII SIC - Avaliação</h3>
                 <nav>
                 <ul class="nav masthead-nav">
-                    <li class="active"><a href="/">Home</a></li>
-                    <li><a href="#">Features</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <a href="trabalhos.php">Avaliar um projeto</a></li>
+                    
+                    
                 </ul>
                 </nav>
             </div>
@@ -51,7 +51,7 @@ if (!isset($_SESSION['avaliador'])) {
 
             <div class="inner cover" align="center">
             <h1 class="cover-heading"> O IFMG Campus Sabará agradece sua participação! </h1>
-            
+            <br>
             <a href="trabalhos.php" class="btn btn-default">Avaliar mais projetos</a>            
             </div>
 

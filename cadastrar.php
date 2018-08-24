@@ -11,22 +11,27 @@ if (isset($_SESSION['avaliador'])) {
 	// está logado
 	header('Location: trabalhos.php');
 
-} else if (isset($_POST['codigo'])) {
+} else if (isset($_POST['nomeAvaliador'])) {
 	
 	$conexao = conectar();
 
-	$sql = "SELECT * FROM avaliador WHERE id=?";
-	
-	$comando = $conexao->prepare($sql);
-	$sucesso = $comando->execute([ $_POST['codigo'] ]);
+    $nomeAvaliador = $_POST['nomeAvaliador'];
+	$sql = "INSERT INTO avaliador (nome) VALUES ('$nomeAvaliador')";
+    
+    $sucesso = $conexao->query($sql);
 
-	if ($comando->rowCount() > 0) {
+	if ($sucesso) {
 		// logando o usuario
-		$_SESSION['avaliador'] = $_POST['codigo'];
-		$_SESSION['nomeaval'] = $comando->fetch(PDO::FETCH_OBJ)->nome;
-		header('Location: trabalhos.php');
+        $sql = "SELECT id FROM avaliador WHERE nome = '$nomeAvaliador'";
+        $comando = $conexao->prepare($sql);
+        $sucesso = $comando->execute([ $nomeAvaliador] );
+        
+        $_SESSION['avaliador'] = $comando->fetch(PDO::FETCH_OBJ)->id;
+        $_SESSION['nomeaval'] = $nomeAvaliador;
+        
+        $mensagem = "Seu código é " . $_SESSION['avaliador'] . ", anote e não perca! <a href=trabalhos.php>Clique aqui para avaliar um trabalho!</a>";
 	} else {
-		$mensagem = "Usuário não existe";
+		$mensagem = "Usuário já existe!";
 	}
 }
 
@@ -68,19 +73,18 @@ if (isset($_SESSION['avaliador'])) {
           </div>
 
           <div class="inner cover" align="center">
-            <h2 class="cover-heading">Digite seu código:</h2>
+            <h2 class="cover-heading">Digite seu nome completo:</h2>
 			<br>
-				<form action="index.php" method="post">
+            <form action="cadastrar.php" method="post">
 				<div class="input-group input-group-lg">
-					<input name="codigo" type="number" class="form-control" placeholder="Digite aqui seu código...">
+                    <input name="nomeAvaliador" type="text" class="form-control" placeholder="Digite aqui seu nome completo...">
 					<span class="input-group-btn">
-						<button href="index.php" class="btn btn-default" type="submit">Entrar!</button>
+						<button href="index.php" class="btn btn-default" type="submit">Me cadastre!</button>
 					</span>
 				</div>
 				<br>
 					<p><?= $mensagem ?></p>
-				</form>
-			<h1>ou clique e <a href="cadastrar.php">cadastre-se!</a></h1>
+            </form>
             </div>
           </div>
         </div>
