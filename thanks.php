@@ -47,7 +47,7 @@ if (!isset($_SESSION['avaliador'])) {
             </div>
 
             <div class="inner cover" align="center">
-            <h1 class="cover-heading"> O IFMG Campus IFMG agradece sua participação! </h1>
+            <h1 class="cover-heading"> O IFMG agradece sua participação! </h1>
             <br>
             <a href="trabalhos.php" class="btn btn-default">Avaliar mais projetos</a>            
             </div>
