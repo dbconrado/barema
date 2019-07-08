@@ -170,7 +170,7 @@
                             <option value="Ponte Nova">
                             <option value="Reitoria">
                             <option value="Ribeirão das Neves">
-                            <option value="IFMG">
+                            <option value="Sabará">
                             <option value="Santa Luzia">
                             <option value="São João Evangelista">
                             <option value="Valadares">
