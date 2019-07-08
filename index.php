@@ -57,18 +57,11 @@ if (isset($_SESSION['avaliador'])) {
           <div class="masthead clearfix">
             <div class="inner">
               <h3 class="masthead-brand">VII SIC - Avaliação</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="trabalhos.php">Trabalhos</a></li>
-                  
-                  
-                </ul>
-              </nav>
             </div>
           </div>
 
           <div class="inner cover" align="center">
-            <h2 class="cover-heading">Digite seu código:</h2>
+            <h2 class="cover-heading">Digite seu código de avaliador:</h2>
 			<br>
 				<form action="index.php" method="post">
 				<div class="input-group input-group-lg">
