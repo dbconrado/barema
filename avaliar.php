@@ -15,8 +15,10 @@
     $comando = $conexao->query($sql);
     $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
 
-    if($resultado[0]->categoria == "P") $sql = "SELECT finalizou_avaliacao FROM avaliacao_poster WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
-    else $sql = "SELECT finalizou_avaliacao FROM avaliacao_oral WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
+    if($resultado[0]->categoria == "P")
+        $sql = "SELECT finalizou_avaliacao FROM avaliacao_poster WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
+    else
+        $sql = "SELECT finalizou_avaliacao FROM avaliacao_oral WHERE trabalho_id = ". $_GET['cod'] ." AND avaliador_id = ". $_SESSION['avaliador'] .";";
 
     $comando = $conexao->query($sql);
     $resultado = $comando->fetchAll(PDO::FETCH_OBJ);
