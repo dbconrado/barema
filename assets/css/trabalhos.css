@@ -216,3 +216,11 @@ body {
 #login {
   text-align: right;
 }
+
+footer {
+  padding-top: 30px;
+  padding-bottom: 3px;
+  text-align: center;
+  font-size: 80%;
+  color: #aaa;
+}

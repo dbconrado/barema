@@ -96,7 +96,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>VII SIC - Sabará</title>
+    <title>SIC - IFMG</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -115,9 +115,9 @@
             <div class="inner">
             <div id="login">
               <p>Avaliador <b><?= $_SESSION['avaliador'] ?></b>: <?= $_SESSION['nomeaval'] ?>!
-              <a href="#" class="btn btn-warning btn-sm">Sair</a>
+              <a href="sair.php" class="btn btn-warning btn-sm">Sair</a>
             </div>
-              <h3 class="masthead-brand">VII SIC - Avaliação</h3>
+              <h3 class="masthead-brand">SIC - Avaliação</h3>
               <nav>
                 <ul class="nav masthead-nav">
                     <li>Avaliador: <?= $_SESSION['nomeaval'] ?></li>

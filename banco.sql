@@ -54,5 +54,11 @@ CREATE TABLE avaliacao_poster (
 	FOREIGN KEY (trabalho_id) REFERENCES trabalho (id)
 );
 
+CREATE TABLE administrador (
+	usuario VARCHAR(200),
+	senha VARCHAR(200),
+	CONSTRAINT PK_Adm PRIMARY KEY (usuario, senha)
+);
+
 CREATE USER IF NOT EXISTS 'barema'@'localhost' IDENTIFIED BY 'amerab';
 GRANT ALL PRIVILEGES ON barema.* TO 'barema'@'localhost';

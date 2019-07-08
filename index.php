@@ -11,6 +11,11 @@ if (isset($_SESSION['avaliador'])) {
 	// está logado
 	header('Location: trabalhos.php');
 
+} else if (isset($_SESSION['admin'])) {
+
+  // está logado como administrador
+  header('Location: admin.php');
+
 } else if (isset($_POST['codigo'])) {
 	
 	$conexao = conectar();
@@ -38,7 +43,7 @@ if (isset($_SESSION['avaliador'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>VII SIC - Sabará</title>
+    <title>SIC - IFMG</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -56,27 +61,39 @@ if (isset($_SESSION['avaliador'])) {
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">VII SIC - Avaliação</h3>
+              <h3 class="masthead-brand">SIC - Avaliação</h3>
             </div>
           </div>
 
           <div class="inner cover" align="center">
             <h2 class="cover-heading">Digite seu código de avaliador:</h2>
-			<br>
-				<form action="index.php" method="post">
-				<div class="input-group input-group-lg">
-					<input name="codigo" type="number" class="form-control" placeholder="Digite aqui seu código...">
-					<span class="input-group-btn">
-						<button href="index.php" class="btn btn-default" type="submit">Entrar!</button>
-					</span>
-				</div>
-				<br>
-					<p><?= $mensagem ?></p>
-				</form>
-			<h1>ou clique e <a href="cadastrar.php">cadastre-se!</a></h1>
+			      <br>
+            <form action="index.php" method="post">
+              <div class="input-group input-group-lg">
+                <input name="codigo" type="number" class="form-control" placeholder="Digite aqui seu código..." autofocus>
+                <span class="input-group-btn">
+                  <button href="index.php" class="btn btn-default" type="submit">Entrar!</button>
+                </span>
+              </div>
+              <br>
+              <p><?= $mensagem ?></p>
+            </form>
+
+            <div class="card">
+              <div class="card-body">
+                <h3 class="card-title">Painel do Administrador</h3>
+                <p class="card-text">Escolha esta opção se você é administrador do sistema.</p>
+                <a href="admin.php" class="btn btn-primary">Acessar Painel do Administrador</a>
+              </div>
             </div>
+
+
           </div>
+
+
         </div>
+
+
       </div>
     </div>
 

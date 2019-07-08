@@ -3,7 +3,7 @@
 
   require_once 'conexao.php';
 
-  if (!isset($_SESSION['avaliador'])) {
+  if (!isset($_SESSION['admin'])) {
 
     // BNÃO está logado
     header('Location: index.php');
@@ -26,7 +26,7 @@
       $mensagem = 'ERRO: ' . $comando->errorInfo()[2];
 
     // POST-Redirect-GET
-    header('Location: cadtrabalho.php?mensagem=' . $mensagem);
+    header('Location: cadavaliador.php?mensagem=' . $mensagem);
     return;
   }
 
@@ -41,7 +41,7 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>VII SIC - Sabará</title>
+      <title>SIC - IFMG</title>
   
       <!-- Bootstrap -->
       <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -59,10 +59,14 @@
   
             <div class="masthead clearfix">
               <div class="inner">
-                <h3 class="masthead-brand">VII SIC - Avaliação</h3>
+              <div id="login">
+                  <p>Administrador: <b><?= $_SESSION['admin'] ?></b>
+                  <a href="sair.php" class="btn btn-warning btn-sm">Sair</a>
+                </div>
+                <h3 class="masthead-brand">SIC - Avaliação</h3>
                 <nav>
                   <ul class="nav masthead-nav">
-                    <li class="active"><a href="trabalhos.php">Trabalhos</a></li>
+                  <li><a href="admin.php">Ir para Painel</a></li>
                   </ul>
                 </nav>
               </div>
@@ -130,6 +134,7 @@
       <script>
         $("#novo").click(function() {
           $("#cadastro").show();
+          $("#cadastro #itnome").focus();
         });
       </script>
   </body>

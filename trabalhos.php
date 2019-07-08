@@ -24,7 +24,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>VII SIC - Sabará</title>
+    <title>SIC - IFMG</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -47,13 +47,7 @@
               <p>Avaliador <b><?= $_SESSION['avaliador'] ?></b>: <?= $_SESSION['nomeaval'] ?>
               <a href="sair.php" class="btn btn-warning btn-sm">Sair</a>
             </div>
-              <h3 class="masthead-brand">VII SIC - Avaliação</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="trabalhos.php">Trabalhos</a></li>
-                  <li><a href="#">Administrar</a></li>
-                </ul>
-              </nav>
+              <h3 class="masthead-brand">SIC - Avaliação</h3>
             </div>
           </div>
 
@@ -61,7 +55,7 @@
             <h2 class="cover-heading">Selecione o trabalho a ser avaliado:</h2>
               
             <form action="avaliar.php" method="GET">
-              <select name="cod" class="selectpicker selBox" data-live-search="true" data-dropup-auto="false">
+              <select name="cod" class="selectpicker selBox" data-live-search="true" data-dropup-auto="false" autofocus>
                 <?php foreach ($resultado as $trab) { ?>
                   <option data-tokens="<?= $trab->titulo ?>" value="<?= $trab->id ?>" ><?= $trab->titulo ?></option>
                 <?php } ?>

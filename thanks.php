@@ -19,7 +19,7 @@ if (!isset($_SESSION['avaliador'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>VII SIC - Sabará</title>
+    <title>SIC - IFMG</title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -42,12 +42,12 @@ if (!isset($_SESSION['avaliador'])) {
               <p>Avaliador <b><?= $_SESSION['avaliador'] ?></b>: <?= $_SESSION['nomeaval'] ?>
               <a href="sair.php" class="btn btn-warning btn-sm">Sair</a>
             </div>
-              <h3 class="mas<h3 class="masthead-brand">VII SIC - Avaliação</h3>
+              <h3 class="mas<h3 class="masthead-brand">SIC - Avaliação</h3>
             </div>
             </div>
 
             <div class="inner cover" align="center">
-            <h1 class="cover-heading"> O IFMG Campus Sabará agradece sua participação! </h1>
+            <h1 class="cover-heading"> O IFMG Campus IFMG agradece sua participação! </h1>
             <br>
             <a href="trabalhos.php" class="btn btn-default">Avaliar mais projetos</a>            
             </div>
