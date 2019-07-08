@@ -50,3 +50,6 @@ CREATE TABLE avaliacao_poster (
 	FOREIGN KEY (avaliador_id) REFERENCES avaliador(id),
 	FOREIGN KEY (trabalho_id) REFERENCES trabalho (id)
 );
+
+CREATE USER IF NOT EXISTS 'barema'@'localhost' IDENTIFIED BY 'amerab';
+GRANT ALL PRIVILEGES ON barema.* TO 'barema'@'localhost';

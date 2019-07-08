@@ -1,8 +1,8 @@
 <?php
 function conectar() {
 	$nomeBanco = "barema";
-	$usuarioBanco = "root";
-	$senhaBanco = "root";
+	$usuarioBanco = "barema";
+	$senhaBanco = "amerab";
 
 	$stringConexao = "mysql:dbname={$nomeBanco};host=localhost";
 
