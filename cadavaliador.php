@@ -10,6 +10,26 @@
   }
 
   $conexao = conectar();
+
+
+  $mensagem = isset($_GET['mensagem']) ? $_GET['mensagem'] : '';
+
+  if (!empty($_POST)) {
+
+    $sql = "INSERT INTO avaliador (nome) VALUES (?)";
+    $comando = $conexao->prepare($sql);
+    $sucesso = $comando->execute([ $_POST['nome'] ]);
+
+    if ($sucesso)
+      $mensagem = "Cadastrado com sucesso!";
+    else
+      $mensagem = 'ERRO: ' . $comando->errorInfo()[2];
+
+    // POST-Redirect-GET
+    header('Location: cadtrabalho.php?mensagem=' . $mensagem);
+    return;
+  }
+
   $sql = "SELECT id, nome FROM avaliador ORDER BY nome";
   $comando = $conexao->query($sql);
   $avaliadores = $comando->fetchAll(PDO::FETCH_OBJ);
@@ -56,6 +76,21 @@
 
               <h2 class="cover-heading">Lista de Avaliadores</h2>
 
+                <div>
+                  <button id="novo" class="btn btn-info">Novo Avaliador</button>
+                </div>
+                <section id="cadastro" style="display:none">
+                  <form action="cadavaliador.php" method="POST">
+                    <div class="form-group">
+                      <label for="itnome">Nome do Avaliador</label>
+                      <input id="itnome" name="nome" type="text" class="form-control" required>
+                    </div>
+                    <div>
+                      <button class="btn btn-primary" type="submit">Cadastrar</button>
+                    </div>
+                  </form>
+                </section>
+
                 <section>
                     <table class="table">
                         <thead>
@@ -91,6 +126,11 @@
       <script src="assets/js/popper.min.js"></script>
       <script src="assets/js/bootstrap.min.js"></script>
       <script src="assets/js/bootstrap-select.min.js"></script>
-      
+
+      <script>
+        $("#novo").click(function() {
+          $("#cadastro").show();
+        });
+      </script>
   </body>
   </html>
