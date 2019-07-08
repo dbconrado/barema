@@ -38,14 +38,11 @@ if (!isset($_SESSION['avaliador'])) {
 
             <div class="masthead clearfix">
             <div class="inner">
-                <h3 class="mas<h3 class="masthead-brand">VII SIC - Avaliação</h3>
-                <nav>
-                <ul class="nav masthead-nav">
-                    <a href="trabalhos.php">Avaliar um projeto</a></li>
-                    
-                    
-                </ul>
-                </nav>
+            <div id="login">
+              <p>Avaliador <b><?= $_SESSION['avaliador'] ?></b>: <?= $_SESSION['nomeaval'] ?>
+              <a href="sair.php" class="btn btn-warning btn-sm">Sair</a>
+            </div>
+              <h3 class="mas<h3 class="masthead-brand">VII SIC - Avaliação</h3>
             </div>
             </div>
 

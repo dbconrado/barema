@@ -212,3 +212,7 @@ body {
       /* width: 25%; */
   }
 }
+
+#login {
+  text-align: right;
+}

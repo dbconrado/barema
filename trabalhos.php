@@ -43,10 +43,15 @@
 
           <div class="masthead clearfix">
             <div class="inner">
+            <div id="login">
+              <p>Avaliador <b><?= $_SESSION['avaliador'] ?></b>: <?= $_SESSION['nomeaval'] ?>
+              <a href="sair.php" class="btn btn-warning btn-sm">Sair</a>
+            </div>
               <h3 class="masthead-brand">VII SIC - Avaliação</h3>
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="trabalhos.php">Trabalhos</a></li>
+                  <li><a href="#">Administrar</a></li>
                 </ul>
               </nav>
             </div>
