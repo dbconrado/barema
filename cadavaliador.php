@@ -14,7 +14,7 @@
 
   $mensagem = isset($_GET['mensagem']) ? $_GET['mensagem'] : '';
 
-  if (!empty($_POST)) {
+  if (!empty($_POST) && empty($_POST['id'])) {
 
     $sql = "INSERT INTO avaliador (nome) VALUES (?)";
     $comando = $conexao->prepare($sql);
@@ -29,6 +29,21 @@
     header('Location: cadavaliador.php?mensagem=' . $mensagem);
     return;
   }
+  else if (!empty($_POST) && !empty($_POST['id'])) {
+    // remover
+
+    $sql = "DELETE FROM avaliador WHERE id=?";
+    $comando = $conexao->prepare($sql);
+    $sucesso = $comando->execute([ $_POST['id'] ]);
+    if ($sucesso)
+      $mensagem = "Avaliador removido!";
+    else
+      $mensagem = 'ERRO: não posso remover avaliador que já fez avaliações.' ;
+    
+      // POST-Redirect-GET
+      header('Location: cadavaliador.php?mensagem=' . $mensagem);
+      return;
+}
 
   $sql = "SELECT id, nome FROM avaliador ORDER BY nome";
   $comando = $conexao->query($sql);
@@ -101,6 +116,7 @@
                             <tr>
                                 <th>Número</th>
                                 <th>Nome do Avaliador</th>
+                                <th>Opção</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,6 +126,11 @@
                             <tr>
                                 <td><?= $a->id ?></td>
                                 <td><?= $a->nome ?></td>
+                                <td>
+                                  <form action="cadavaliador.php" method="POST">
+                                    <input name="id" value="<?= $a->id ?>" type="hidden">
+                                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                                  </form>
                             </tr>
 
                         <?php endforeach; ?>
