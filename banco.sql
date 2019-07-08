@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS barema;
 CREATE DATABASE barema CHARACTER SET UTF8;
 
 USE barema;
@@ -19,6 +20,7 @@ CREATE TABLE avaliacao_oral (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	avaliador_id INT NOT NULL,
 	trabalho_id INT NOT NULL,
+    finalizou_avaliacao CHAR(1) DEFAULT 'F',
 	c1 INT,
 	c2 INT,
 	c3 INT,
@@ -37,6 +39,7 @@ CREATE TABLE avaliacao_poster (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	avaliador_id INT NOT NULL,
 	trabalho_id INT NOT NULL,
+    finalizou_avaliacao CHAR(1) DEFAULT 'F',
 	c1 INT,
 	c2 INT,
 	c3 INT,
