@@ -134,7 +134,7 @@
           </div>
           
           <footer>
-            <p>Desenvolvido pelo IFMG campus IFMG</p>
+            <p>Desenvolvido pelo IFMG campus Sabará</p>
           </footer>
   
         </div>
