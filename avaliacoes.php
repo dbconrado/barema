@@ -113,13 +113,13 @@ $naoAvaliados = $conexao->query($sql)->fetchAll(PDO::FETCH_OBJ);
                 <?php else: ?>
 
                 <p><input id="ipesquisa" type="search" placeholder="Procure por título..." class="form-control" onkeyup="filtrar()"></p>
-
+                <p>Clique nas colunas para ordenar por título ou por média.</p>
                 <table id="resultados" class="table">
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Titulo</th>
-                      <th>Média</th>
+                      <th id="col-titulo">Titulo ^</th>
+                      <th id="col-media">Média</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -262,6 +262,49 @@ $naoAvaliados = $conexao->query($sql)->fetchAll(PDO::FETCH_OBJ);
 				} // fim for
 
 			} // fim funcao
+
+
+      $("#col-titulo")[0].asc = true;
+      toggleColunaOrdenada($("#col-titulo"));
+      
+      $("#col-titulo, #col-media").click(function(e) {
+        var table = $("#resultados");
+        var rows = $("#resultados tbody>tr").toArray().sort(comparer($(this).index()));
+        this.asc = !this.asc;
+        if (!this.asc) {
+          rows = rows.reverse();
+        }
+        toggleColunaOrdenada($(this));
+        for (var i = 0; i < rows.length; i++) {
+          table.append(rows[i]);
+        }
+      });
+
+      function toggleColunaOrdenada(coluna) {
+        if (coluna.attr('id') == 'col-titulo') {
+          coluna.text( "Título ".concat( coluna[0].asc ? '^' : '˅' ) );
+          $("#col-media").text("Média");
+          $("#col-media").css("background-color", '');
+          coluna.css('background-color', 'cadetblue');
+        } else if (coluna.attr('id') == 'col-media') {
+          coluna.text( "Média ".concat( coluna[0].asc ? '^' : '˅' ) );
+          $("#col-titulo").text("Título");
+          $("#col-titulo").css("background-color", '');
+          coluna.css('background-color', 'cadetblue');
+        }
+      }
+
+      function comparer(index) {
+        return function(a, b) {
+          var valA = getCellValue(a, index);
+          var valB = getCellValue(b, index);
+          return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB);
+        };
+      };
+
+      function getCellValue(row, index) {
+        return $(row).children('td').eq(index).text();
+      }
     </script>
   </body>
 </html>
