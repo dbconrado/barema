@@ -112,7 +112,9 @@ $naoAvaliados = $conexao->query($sql)->fetchAll(PDO::FETCH_OBJ);
 
                 <?php else: ?>
 
-                <table class="table">
+                <p><input id="ipesquisa" type="search" placeholder="Procure por título..." class="form-control" onkeyup="filtrar()"></p>
+
+                <table id="resultados" class="table">
                   <thead>
                     <tr>
                       <th>ID</th>
@@ -222,6 +224,44 @@ $naoAvaliados = $conexao->query($sql)->fetchAll(PDO::FETCH_OBJ);
       $('.fechar_dlg').click(function (e) {
         $('#dlg_avaliadores').removeAttr('open');
       });
+
+			var accentMap = {
+			  'á':'a', 'é':'e', 'í':'i','ó':'o','ú':'u',
+			  'â':'a', 'ê':'e', 'ô':'o',
+			  'ã':'a', 'õ':'o',
+			  'ç':'c'
+			};
+
+			function accent_fold (s) {
+  				if (!s) { return ''; }
+  				var ret = '';
+  				for (var i = 0; i < s.length; i++) {
+    				ret += accentMap[s.charAt(i)] || s.charAt(i);
+  				}
+  				return ret;
+			};
+
+			function filtrar() {
+
+				var ipesquisa = document.getElementById('ipesquisa');
+				var filtro = accent_fold( ipesquisa.value.toLowerCase() );
+				var trs = document.querySelectorAll('#resultados tr');
+
+				for (var i = 0; i < trs.length; i++) {
+
+					td = trs[i].getElementsByTagName('td')[1];
+					if (td) {
+						var valor = td.textContent || td.innerText;
+						if (accent_fold( valor.toLowerCase() ).indexOf(filtro) > -1) {
+							trs[i].style.display = '';
+						} else {
+							trs[i].style.display = 'none';
+						} // fim if
+					} // fim if
+
+				} // fim for
+
+			} // fim funcao
     </script>
   </body>
 </html>
