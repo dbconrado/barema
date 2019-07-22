@@ -74,9 +74,7 @@ foreach ($resultado as $linha) {
   </head>
   <body>
     <div class="site-wrapper">
-
       <div class="site-wrapper-inner">
-
         <div class="cover-container">
 
           <div class="masthead clearfix">
@@ -88,56 +86,56 @@ foreach ($resultado as $linha) {
                   </ul>
                 </nav>
             </div>
-          </div>
+          </div><!--- masthead -->
 
           <div class="inner cover">
             <h2 class="cover-heading">Resultados </h2>
             <div class="row" align="center">
-                <div class="col">
+              <div class="col">
 
-					<table class="table">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Titulo</th>
-								<th>Média</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach($resultado as $linha) { ?>
-								<tr>
-									<td><?= $linha->tid ?></td>
-									<td><?= $linha->titulo ?></td>
-									<td><?= $linha->media ?>
-                    <button class="btn abrir_dlg"
-                      data-avaliadores='<?= json_encode($linha->avaliacao) ?>'
-                      data-titulo="<?= $linha->titulo ?>"
-                    >
-                      <?= $linha->avaliadores ?> aval.
-                    </button></td>
-								</tr>
-							<?php } ?>
-						</tbody>
-					</table>
-          <dialog id="dlg_avaliadores">
-            <h2 id="titulo">Titulo</h2>
-            <table class="table text-info">
-              <tbody id="avaliadores">
-              </tbody>
-            </table>
-            <button class="btn fechar_dlg">Fechar</button>
-          </dialog>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Titulo</th>
+                      <th>Média</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach($resultado as $linha) { ?>
+                      <tr>
+                        <td><?= $linha->tid ?></td>
+                        <td><?= $linha->titulo ?></td>
+                        <td><?= $linha->media ?>
+                          <button class="btn abrir_dlg"
+                            data-avaliadores='<?= json_encode($linha->avaliacao) ?>'
+                            data-titulo="<?= $linha->titulo ?>"
+                          >
+                            <?= $linha->avaliadores ?> aval.
+                          </button></td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+                <dialog id="dlg_avaliadores">
+                  <p id="titulo" style="font-weight: bold">Titulo</p>
+                  <table class="table text-info">
+                    <tbody id="avaliadores">
+                    </tbody>
+                  </table>
+                  <button class="btn fechar_dlg">Fechar</button>
+                </dialog>
 
-                </div>
+              </div><!-- col -->
               
-            </div>
-          </div>
+            </div><!-- row -->
+          </div><!-- inner -->
 
-        </div>
+        </div><!-- cover-container -->
 
-      </div>
+      </div><!-- site-wrapper-inner -->
 
-    </div>
+    </div><!-- site-wrapper -->
 
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/popper.min.js"></script>
@@ -158,12 +156,16 @@ foreach ($resultado as $linha) {
         $('#dlg_avaliadores #titulo').text($(this).data().titulo);
         
         $('#dlg_avaliadores').attr('open', true);
+
+        var popper = new Popper(e.target, $('#dlg_avaliadores')[0], {
+          placement: 'auto'
+        });
+
       });
 
       $('.fechar_dlg').click(function (e) {
         $('#dlg_avaliadores').removeAttr('open');
       });
     </script>
-
-</body>
+  </body>
 </html>
