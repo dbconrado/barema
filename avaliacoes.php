@@ -57,6 +57,18 @@ foreach ($resultado as $linha) {
   $linha->media = $media;
   $linha->avaliadores = $avaliadores;
 }
+
+/* calcular trabalhos não avaliados */
+$sql = <<<EOF
+SELECT t.id, t.titulo, a.trabalho_id
+  FROM trabalho t
+  LEFT JOIN avaliacao_poster a ON (t.id = a.trabalho_id)
+  WHERE trabalho_id IS NULL
+  ORDER BY t.titulo
+EOF;
+
+$naoAvaliados = $conexao->query($sql)->fetchAll(PDO::FETCH_OBJ);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,9 +101,16 @@ foreach ($resultado as $linha) {
           </div><!--- masthead -->
 
           <div class="inner cover">
+            <p><a href="#nao-avaliados">Ir para trabalhos sem avaliação</a></p>
             <h2 class="cover-heading">Resultados </h2>
             <div class="row" align="center">
               <div class="col">
+
+                <?php if (count($resultado) == 0): ?>
+
+                <p>Nenhum trabalho foi avaliado ainda.</p>
+
+                <?php else: ?>
 
                 <table class="table">
                   <thead>
@@ -107,7 +126,7 @@ foreach ($resultado as $linha) {
                         <td><?= $linha->tid ?></td>
                         <td><?= $linha->titulo ?></td>
                         <td><?= $linha->media ?>
-                          <button class="btn abrir_dlg"
+                          <button class="btn btn-info abrir_dlg"
                             data-avaliadores='<?= json_encode($linha->avaliacao) ?>'
                             data-titulo="<?= $linha->titulo ?>"
                           >
@@ -125,10 +144,47 @@ foreach ($resultado as $linha) {
                   </table>
                   <button class="btn fechar_dlg">Fechar</button>
                 </dialog>
-
+                
+                <?php endif; ?>
+                
               </div><!-- col -->
-              
             </div><!-- row -->
+            <div class="row">
+              <div class="col">
+
+                <h2 id="nao-avaliados" class="cover-heading">
+                  Trabalhos sem Avaliações
+                </h2>
+                
+                <?php if (count($naoAvaliados) == 0): ?>
+
+                <p>Todos os trabalhos possuem pelo menos uma avaliação!</p>
+
+                <?php else: ?>
+
+                <table class="table">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Título</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      
+                      <?php foreach ($naoAvaliados as $t): ?>
+                        <tr>
+                          <td><?= $t->id ?></td>
+                          <td><?= $t->titulo ?></td>
+                        </tr>
+                      <?php endforeach; ?>
+
+                      </tbody>
+                </table>
+                
+                <?php endif; ?>
+              </div><!-- col -->
+            </div><!-- row -->
+
           </div><!-- inner -->
 
         </div><!-- cover-container -->
