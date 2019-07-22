@@ -1,5 +1,13 @@
 <?php
 
+session_start();
+
+if (!isset($_SESSION['admin'])) {
+
+  // BNÃO está logado
+  header('Location: index.php');
+}
+
 require_once 'conexao.php';
 
 $conexao = conectar();
@@ -49,9 +57,6 @@ foreach ($resultado as $linha) {
   $linha->media = $media;
   $linha->avaliadores = $avaliadores;
 }
-echo '<pre>';
-var_dump($resultado);
-echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="en">
